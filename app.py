@@ -28,7 +28,19 @@ import time
 import warnings
 warnings.filterwarnings('ignore')
 
+# Load NLP model for location extraction
 
+nlp = spacy.load("en_core_web_sm")
+
+# Download stopwords
+nltk.download('stopwords')
+STOPWORDS = set(stopwords.words('english'))
+
+# Initialize geocoder
+geolocator = Nominatim(user_agent="crisis_mapping")
+
+
+ 
 #  Initialize the app
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'reddit_posts.db') + '?check_same_thread=False'
@@ -142,18 +154,7 @@ reddit = praw.Reddit(
 # Load Sentiment Analyzer
 analyser = SentimentIntensityAnalyzer()
 
-# Load NLP model for location extraction
-nlp = spacy.load("en_core_web_sm")
 
-# Download stopwords
-nltk.download('stopwords')
-STOPWORDS = set(stopwords.words('english'))
-
-# Initialize geocoder
-geolocator = Nominatim(user_agent="crisis_mapping")
-
-
- 
 
 risk_labels=['High Risk','Low Risk','Moderate Risk']
 # Define subreddits and keywords
@@ -461,7 +462,7 @@ def store_df_in_sql(df):
         db.session.commit()
  
 
-# Fetch the data from the high_risk_loc table for Locations                
+# Fetch the data from the high_risk_countries table for Locations                
 def fetch_data():
     with app.app_context():
         engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -532,7 +533,7 @@ def analyze_posts():
     store_df_in_sql(df)
     print("Lets start analyzing the users")
     for i in range(0, len(df)):
-        time.sleep(1)  # Avoid hitting rate limit
+        time.sleep(1)   
         if(i%100==0):
             print(i)
         if(df.iloc[i]['Post ID']!=None):
