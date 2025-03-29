@@ -28,7 +28,7 @@ MODERN_THEME = {
 }
 
 # Start date variable
-start_time = '2025-03-01'
+start_time = '2025-03-16'
 start_time = pd.to_datetime(start_time)
 
 def create_dashboard(flask_app, db):
@@ -158,7 +158,7 @@ def create_dashboard(flask_app, db):
     </html>
     '''
 
-    # Import Models
+    # Import Tables
     from app import RedditPost, HighRiskLocation, UserBehaviorHistory
 
     # ====================== DATA FETCHING FUNCTIONS ======================
@@ -447,14 +447,16 @@ def create_dashboard(flask_app, db):
             try:
                 vectorizer = CountVectorizer(max_features=10, stop_words='english')
                 word_counts = vectorizer.fit_transform(df['content'])
-                sorted_word_counts = np.argsort(word_counts.sum(axis=0).A1)[::-1]
+                sorted_word_counts = np.argsort(-word_counts.sum(axis=0).A1)
                 keywords = vectorizer.get_feature_names_out()[sorted_word_counts]
-                counts = word_counts.sum(axis=0).A1
+                counts = word_counts.sum(axis=0).A1[sorted_word_counts]
 
                 fig = go.Figure(go.Bar(
                     x=keywords,
                     y=counts,
-                    marker_color=MODERN_THEME['primary']
+                    marker_color=MODERN_THEME['primary'],
+                    text=counts,
+                    textposition='auto'
                 ))
                 fig.update_layout(
                     title='Top Sentiment Keywords',
@@ -463,7 +465,8 @@ def create_dashboard(flask_app, db):
                     font_color=MODERN_THEME['text'],
                     margin=dict(l=20, r=20, t=40, b=20),
                     xaxis_title="Keywords",
-                    yaxis_title="Frequency"
+                    yaxis_title="Frequency",
+                    xaxis={'categoryorder': 'total descending'}
                 )
                 charts.append(html.Div([
                     html.Div('Top Sentiment Keywords', className='card-header'),
@@ -595,8 +598,8 @@ def create_dashboard(flask_app, db):
              
             # create pivot table for location vs risk level
             location_risk = df.groupby(['location', 'risk_level']).size().unstack().fillna(0)
-             
-            # location_risk = df.groupby(['location', 'risk_level']).size().unstack().fillna(0)
+            location_risk['total']=location_risk.sum(axis=1)
+            location_risk = location_risk.sort_values('total', ascending=False).drop(columns='total')
             fig = px.bar(
                 location_risk,
                 title='Risk Level by Location',
@@ -609,7 +612,8 @@ def create_dashboard(flask_app, db):
                 margin=dict(l=20, r=20, t=40, b=20),
                 xaxis_title="Location",
                 yaxis_title="Count",
-                legend_title_text='Risk Level'
+                legend_title_text='Risk Level',
+                xaxis={'categoryorder':'total descending'}
             )
             charts.append(html.Div([
                 html.Div('Risk Level by Location', className='card-header'),
@@ -630,18 +634,16 @@ def create_dashboard(flask_app, db):
                 className='card'
             )]
         
-        # 1. Top Active Users (Bar)
+        # 1. Top High-Risk Users (Bar)
         if 'username' in df.columns:
-            df = df[df['username'] != 'nan']
-            df = df[df['username'] != 'None']
-            df=df.dropna(subset=['username'])
-            # plot the top usernames with more high_risk_count
-            top_users=df['username'].value_counts().head(10)
-            # plot the top usernames with more high_risk_count
+            df = df[~df['username'].isin(['nan', 'None', '[deleted]'])]
+            top_high_risk = df.groupby('username')['high_risk_count'].sum().nlargest(10)
             fig = px.bar(
-                top_users,
-                title='Top 10 Active Users',
-                color_discrete_sequence=[MODERN_THEME['primary']]
+                top_high_risk,
+                title='Top 10 High-Risk Users',
+                labels={'value': 'High-Risk Posts', 'username': 'User'},
+                color_discrete_sequence=[MODERN_THEME['primary']],
+                text_auto=True
             )
             fig.update_layout(
                 paper_bgcolor='white',
@@ -650,30 +652,11 @@ def create_dashboard(flask_app, db):
                 margin=dict(l=20, r=20, t=40, b=20),
                 xaxis_title="Username",
                 yaxis_title="High-Risk Count",
-                showlegend=False
-            )
-            # create bar chart for top_users with high_risk_count
-            fig = px.bar(
-                top_users,
-                title='Top 10 Active Users',
-                color_discrete_sequence=[MODERN_THEME['primary']]
-            )
-            fig = px.bar(
-                top_users,
-                title='Top 10 Active Users',
-                color_discrete_sequence=[MODERN_THEME['primary']]
-            )
-            fig.update_layout(
-                paper_bgcolor='white',
-                plot_bgcolor='white',
-                font_color=MODERN_THEME['text'],
-                margin=dict(l=20, r=20, t=40, b=20),
-                xaxis_title="Username",
-                yaxis_title="Post Count",
+                xaxis={'categoryorder': 'total descending'},
                 showlegend=False
             )
             charts.append(html.Div([
-                html.Div('Top 10 Active Users', className='card-header'),
+                html.Div('Top 10 High-Risk Users', className='card-header'),
                 html.Div(dcc.Graph(figure=fig), className='card-body')
             ], className='card'))
         
@@ -832,7 +815,7 @@ def create_dashboard(flask_app, db):
                 df,
                 x='risk_level',
                 y='engagement',
-                title='Engagement by Risk Level',
+                title='Engagement Distribution by Risk Level',
                 color='risk_level',
                 color_discrete_sequence=[MODERN_THEME['primary'], MODERN_THEME['secondary'], MODERN_THEME['accent']]
             )
@@ -846,7 +829,7 @@ def create_dashboard(flask_app, db):
                 showlegend=False
             )
             charts.append(html.Div([
-                html.Div('Engagement by Risk Level', className='card-header'),
+                html.Div('Engagement Distribution by Risk Level', className='card-header'),
                 html.Div(dcc.Graph(figure=fig), className='card-body')
             ], className='card'))
         
@@ -924,7 +907,7 @@ def create_dashboard(flask_app, db):
                         id='date-range',
                         min_date_allowed=datetime.date(2025, 1, 1),
                         max_date_allowed=datetime.date.today(),
-                        start_date=datetime.date(2025, 3, 1),
+                        start_date=datetime.date(2025, 3, 17),
                         end_date=datetime.date.today(),
                         display_format='YYYY-MM-DD',
                         className='mb-3'
@@ -1036,4 +1019,5 @@ def create_dashboard(flask_app, db):
         return (risk_charts, sentiment_charts, geo_charts, 
                 user_charts, engagement_charts)
 
+    return dash_app
     return dash_app
