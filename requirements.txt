@@ -21,6 +21,7 @@ matplotlib==3.7.2
 praw==7.7.1
 python-dotenv==1.0.0
 requests==2.31.0
+nltk
 
 # Geospatial Processing
 geopy==2.3.0
