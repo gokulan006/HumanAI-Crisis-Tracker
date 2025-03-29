@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5e49cd5b5fdaeb88258d8ca994252d0f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_5e49cd5b5fdaeb88258d8ca994252d0f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5e49cd5b5fdaeb88258d8ca994252d0f = L.map(
+                "map_5e49cd5b5fdaeb88258d8ca994252d0f",
+                {
+                    center: [43.391274415730344, -41.549407807420806],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4960a7e010055120e1f17c0fe311286d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4960a7e010055120e1f17c0fe311286d.addTo(map_5e49cd5b5fdaeb88258d8ca994252d0f);
+        
+    
+            var heat_map_057948bf98461be3a5289412674c8249 = L.heatLayer(
+                [[54.7023545, -3.2765753], [54.7023545, -3.2765753], [39.7837304, -100.445882], [54.7023545, -3.2765753], [39.7837304, -100.445882], [39.7837304, -100.445882], [51.1638175, 10.4478313], [39.7837304, -100.445882], [54.7023545, -3.2765753], [51.1638175, 10.4478313], [39.7837304, -100.445882], [39.7837304, -100.445882], [51.1638175, 10.4478313], [39.7837304, -100.445882], [54.7023545, -3.2765753], [39.7837304, -100.445882], [35.0000663, 104.999955], [39.7837304, -100.445882], [39.7837304, -100.445882], [39.294076, 35.2316631], [39.7837304, -100.445882], [39.7837304, -100.445882], [54.7023545, -3.2765753], [54.7023545, -3.2765753], [39.294076, 35.2316631], [39.7837304, -100.445882], [51.1638175, 10.4478313], [39.7837304, -100.445882], [39.7837304, -100.445882], [39.7837304, -100.445882], [54.7023545, -3.2765753], [54.7023545, -3.2765753], [39.7837304, -100.445882], [59.6749712, 14.5208584], [42.6384261, 12.674297], [59.6749712, 14.5208584], [39.7837304, -100.445882], [54.7023545, -3.2765753], [54.7023545, -3.2765753], [39.7837304, -100.445882], [39.7837304, -100.445882], [23.6585116, -102.0077097], [39.7837304, -100.445882], [39.7837304, -100.445882], [54.7023545, -3.2765753], [39.7837304, -100.445882], [54.7023545, -3.2765753], [12.7503486, 122.7312101], [54.7023545, -3.2765753], [39.3260685, -4.8379791], [54.7023545, -3.2765753], [23.6585116, -102.0077097], [39.7837304, -100.445882], [39.3260685, -4.8379791], [39.7837304, -100.445882], [42.6384261, 12.674297], [39.7837304, -100.445882], [39.7837304, -100.445882], [54.7023545, -3.2765753], [54.7023545, -3.2765753], [64.5731537, 11.52803643954819], [46.603354, 1.8883335], [39.3260685, -4.8379791], [18.2247706, -66.4858295], [59.6749712, 14.5208584], [39.7837304, -100.445882], [18.2247706, -66.4858295], [39.3260685, -4.8379791], [39.7837304, -100.445882], [39.7837304, -100.445882], [39.7837304, -100.445882], [39.7837304, -100.445882], [51.1638175, 10.4478313], [39.7837304, -100.445882], [39.7837304, -100.445882], [54.7023545, -3.2765753], [12.7503486, 122.7312101], [51.1638175, 10.4478313], [39.7837304, -100.445882], [42.6384261, 12.674297], [39.7837304, -100.445882], [39.7837304, -100.445882], [39.7837304, -100.445882], [46.603354, 1.8883335], [39.294076, 35.2316631], [39.7837304, -100.445882], [59.6749712, 14.5208584], [39.7837304, -100.445882], [35.0000663, 104.999955]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 18,
+  "radius": 25,
+  "blur": 15,
+}
+            );
+        
+    
+            heat_map_057948bf98461be3a5289412674c8249.addTo(map_5e49cd5b5fdaeb88258d8ca994252d0f);
+        
+</script>
+</html>

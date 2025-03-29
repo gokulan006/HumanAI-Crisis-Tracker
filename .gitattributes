@@ -1,0 +1,5 @@
+risk_model_package/content/risk_model_package/model/variables/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+risk_model_package/model/variables/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+*.db filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+risk_model_package/** filter=lfs diff=lfs merge=lfs -text
