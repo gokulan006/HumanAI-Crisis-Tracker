@@ -1,10 +1,16 @@
 # CrisisWatch AI
 
 ## Overview
-This project aims to build an AI-driven crisis monitoring dashboard that detects high-risk mental health signals from social media (Reddit) using NLP (DistilBERT, VADER) and geospatial analytics (Folium, GeoPy). The system will:
+This project aims to build an AI-driven crisis monitoring dashboard that detects high-risk mental health signals from social media (Reddit) using NLP (DistilBERT, VADER) and geospatial analytics (Folium, GeoPy). 
+
+The system will:
+
 •	Classify posts into risk levels (High, Moderate, Low) using a fine-tuned DistilBERT model.
+
 •	Map high-risk clusters in real-time to guide public health interventions.
+
 •	Track at-risk users based on behavior patterns (post frequency, sentiment trends).
+
 •	Provide an interactive dashboard (Dash/Plotly) for crisis response teams.
 
 ## Features
@@ -12,7 +18,12 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
 - Classifies posts into risk categories (High, Moderate, Low) using an AI model
 - Stores data in a database
 - Provides a geospatial heatmap for crisis trends
-- Interactive dashboard for visualization
+- Interactive dashboard for analysing
+   - Risk Analysis
+   - Sentiment Analysis
+   - Geographic Analysis
+   - User Behaviour Analysis
+   - Engagement Analysis
 
 ## Prerequisites
 1. **Create a Reddit API Key**:
@@ -22,7 +33,7 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
    - Note down the `client_id` and `client_secret`
 
 2. **Set Up Environment Variables**:
-   - Create a `.env` file in the project directory.
+   - Change the `.env` file in the project directory.
    - Add the following content:
      ```ini
      CLIENT_ID=your_reddit_client_id
@@ -35,8 +46,8 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/suicide_analysis.git
-   cd suicide_analysis
+   git clone https://github.com/gokulan006/HumanAI-Crisis-Tracker.git
+   cd HumanAI-Crisis-Tracker
    ```
 2. Create a virtual environment:
    ```sh
@@ -46,6 +57,9 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
 3. Install dependencies:
    ```sh
    pip install -r requirements.txt
+   python -m spacy download en_core_web_sm
+   python -m nltk.downloader stopwords
+   
    ```
 
 ## Usage
@@ -53,12 +67,9 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
    ```sh
    python app.py
    ```
-2. **Run the Dashboard** (optional):
-   ```sh
-   python dash_app.py
-   ```
-3. **View Geospatial Heatmap**:
-   - Open `geospatial_heatmap.html` in a browser.
+2. **View CrisisWatch AI**:
+   - Open `http://localhost:5000/` in a browser.
+   - Press `View dashboard` in the site.
 
 ## File Structure
 ```
@@ -71,7 +82,7 @@ This project aims to build an AI-driven crisis monitoring dashboard that detects
 ├── requirements.txt          # Dependencies
 ├── templates/                # HTML templates for web application
 ├── risk_model_package/       # AI model package
-└── .env                      # Environment variables (not included in repo)
+└── .env                      # Environment variables (change to your reddit API)
 ```
 
 
