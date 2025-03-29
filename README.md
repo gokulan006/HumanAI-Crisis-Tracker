@@ -1,7 +1,11 @@
-# Suicide Analysis Project
+# CrisisWatch AI
 
 ## Overview
-This project is an AI-powered behavioral analysis tool designed to detect and analyze mental health crises such as suicide risk, substance use, and depression through Reddit discussions. The project includes a real-time dashboard with geospatial crisis trend analysis.
+This project aims to build an AI-driven crisis monitoring dashboard that detects high-risk mental health signals from social media (Reddit) using NLP (DistilBERT, VADER) and geospatial analytics (Folium, GeoPy). The system will:
+•	Classify posts into risk levels (High, Moderate, Low) using a fine-tuned DistilBERT model.
+•	Map high-risk clusters in real-time to guide public health interventions.
+•	Track at-risk users based on behavior patterns (post frequency, sentiment trends).
+•	Provide an interactive dashboard (Dash/Plotly) for crisis response teams.
 
 ## Features
 - Extracts posts from Reddit using the Reddit API
@@ -70,8 +74,6 @@ This project is an AI-powered behavioral analysis tool designed to detect and an
 └── .env                      # Environment variables (not included in repo)
 ```
 
-## Contributing
-Feel free to submit issues or pull requests to enhance this project.
 
 ## License
 This project is licensed under the MIT License.
