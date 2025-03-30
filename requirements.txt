@@ -3,8 +3,8 @@ flask==2.2.5
 flask-sqlalchemy==3.0.3
 dash==2.11.1
 dash-bootstrap-components==1.4.1
-pandas==2.0.3
-numpy==1.23.5  # Adjusted for TensorFlow compatibility
+pandas==2.2.1
+numpy==1.26.4  
 
 # NLP/ML Processing
 transformers==4.33.3
