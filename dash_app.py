@@ -1020,4 +1020,4 @@ def create_dashboard(flask_app, db):
                 user_charts, engagement_charts)
 
     return dash_app
-    return dash_app
+    
