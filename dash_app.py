@@ -986,7 +986,7 @@ def create_dashboard(flask_app, db):
             # Auto-Refresh Component
             dcc.Interval(
                 id='interval-component',
-                interval=60*1000,  # 1 minute
+                interval=600*1000,  # 10 minutes
                 n_intervals=0
             )
         ], className='container')
