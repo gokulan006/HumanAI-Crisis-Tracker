@@ -19,7 +19,6 @@ from sqlalchemy import create_engine
 from dash_app import create_dashboard
 from dotenv import load_dotenv
 from transformers import DistilBertTokenizerFast, TFDistilBertModel
-import tensorflow as tf
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
