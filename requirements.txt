@@ -12,5 +12,5 @@ dash==3.0.1
 wordcloud==1.9.4
 scikit-learn==1.6.1
 dotenv==0.9.9
-transformers=4.50.3
+transformers==4.50.3
 tf-keras==2.19.0
